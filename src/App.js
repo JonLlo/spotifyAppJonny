@@ -12,6 +12,8 @@ function App() {
   const [ searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [ albums, setAlbums ] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+
 
   useEffect(() => {
     //API Access Token
@@ -30,7 +32,16 @@ function App() {
   //Search
 
   async function search() {
-       console.log("Searching for " + searchInput) 
+    if (!searchInput) {
+      setErrorMessage("Search input is empty.");
+      setAlbums([]);
+      console.log("Search input is empty.");
+      // Optionally, you can display a message to the user indicating that the search box is empty
+      return;
+    }
+    console.log("Searching for " + searchInput) 
+
+
 
        //Get request using search to get the Artist ID
        var searchParameters = {
@@ -43,12 +54,25 @@ function App() {
 
 
        }
+
        var artistID = await fetch('https://api.spotify.com/v1/search?q=' + searchInput + '&type=artist', searchParameters)
-        .then(response => response.json())
-        .then(data => { 
-          console.log(data)
-          return data.artists.items[0].id })
-        console.log("Artist ID is " + artistID)
+       .then(response => response.json())
+       .then(data => {
+         if (data.artists.items.length === 0) {
+          setErrorMessage("No artists found for the given search query.");
+          setAlbums([]);
+           console.log("No artists found for the given search query.");
+           return "no";
+         } else {
+           console.log(data);
+           return data.artists.items[0].id;
+         }
+       });
+ 
+     // If artistID is null, no need to proceed with fetching albums
+     if (artistID === "no") {
+       return ("WRONG ENTRY");
+     }
         
 
 
@@ -56,6 +80,9 @@ function App() {
        var returnedAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums' + '?include_groups=album&market=US&limit=50', searchParameters)
         .then(response => response.json())
         .then(data => {
+          setErrorMessage("");
+
+
           console.log(data);
           setAlbums(data.items);
         });
@@ -86,7 +113,7 @@ function App() {
           <Button onClick={search}>
             Search
           </Button>
-
+          <Container>{errorMessage && <p>{errorMessage}</p>}</Container>
         </InputGroup>
       </Container>
       <Container>
