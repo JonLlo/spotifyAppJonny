@@ -73,7 +73,7 @@ function App() {
       <Container>
         <InputGroup className="mb-3" size="lg">
           <FormControl
-            placeholder="Search for Artist"
+            placeholder="Search for Artist!"
             type="input"
             onKeyPress={event=> {
               if (event.key == "Enter") {
