@@ -100,7 +100,7 @@ function App() {
       <Container>
         <InputGroup className="mb-3" size="lg">
           <FormControl
-            placeholder="Search for Artist!"
+            placeholder="Search for Artist!!!"
             type="input"
             onKeyPress={event=> {
               if (event.key == "Enter") {
@@ -120,7 +120,7 @@ function App() {
           <Row className="mx-2 row row-cols-4">
           {albums.map((album, i) => {
             return (
-            <Card>
+            <Card style={{ border: '2px solid green' }}>
             <Card.Img src= {album.images[0].url}/>
             <Card.Body>
               <Card.Title>{album.artists[0].name}</Card.Title>
