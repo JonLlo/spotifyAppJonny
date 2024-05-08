@@ -117,10 +117,10 @@ function App() {
         </InputGroup>
       </Container>
       <Container>
-          <Row className="mx-2 row row-cols-4">
+          <Row className="mx-2 row row-cols-4" clasName ="bosh">
           {albums.map((album, i) => {
             return (
-            <Card style={{ border: '2px solid green' }}>
+            <Card style={{ border: '2px solid black' }}>
             <Card.Img src= {album.images[0].url}/>
             <Card.Body>
               <Card.Title>{album.artists[0].name}</Card.Title>
