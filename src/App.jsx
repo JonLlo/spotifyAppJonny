@@ -96,7 +96,7 @@ function App() {
    
 
   return (
-    <div className="App">
+    <div>
       <Container>
         <InputGroup className="mb-3" size="lg">
           <FormControl
@@ -117,14 +117,14 @@ function App() {
         </InputGroup>
       </Container>
       <Container>
-          <Row className="mx-2 row row-cols-4" clasName ="bosh">
+          <Row>
           {albums.map((album, i) => {
             return (
-            <Card style={{ border: '2px solid black' }}>
+            <Card className="card col-lg-3 col-md-4 col-sm-6 col-12">
             <Card.Img src= {album.images[0].url}/>
             <Card.Body>
-              <Card.Title>{album.artists[0].name}</Card.Title>
-              <Card.Title>Album name: {album.name}</Card.Title>
+              <Card.Title className="artist">{album.artists[0].name}</Card.Title>
+              <Card.Title className="album">{album.name}</Card.Title>
             </Card.Body>
           </Card>
             )}) }
